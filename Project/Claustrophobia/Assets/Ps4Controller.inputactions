@@ -1,0 +1,90 @@
+{
+    "name": "Ps4Controller",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "0472afa9-9440-4089-9613-a31e5d5ce2d7",
+            "actions": [
+                {
+                    "name": "MovePlayer",
+                    "type": "Value",
+                    "id": "9c05799a-bcdc-4137-9210-3036aa8aa6d0",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "RotatePlayer",
+                    "type": "Value",
+                    "id": "a096c89f-37fe-4ffe-95d5-1ac656e4692b",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LightsOn",
+                    "type": "Button",
+                    "id": "c1a3f177-b026-4151-ae92-5f624252c2d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "LanternOn",
+                    "type": "Button",
+                    "id": "deffd06e-0808-4b35-a310-fdbfa228573f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "88245057-a40d-489c-a64b-8b63ddec8d72",
+                    "path": "<DualShockGamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovePlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd6a2665-4dde-4e5e-96f7-2b908ddb1ba1",
+                    "path": "<DualShockGamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotatePlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d632eb74-7bbe-4473-9080-0b07e32072e2",
+                    "path": "<DualShockGamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LightsOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "066aead5-5964-44ca-a100-288c150b027a",
+                    "path": "<DualShockGamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LanternOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
