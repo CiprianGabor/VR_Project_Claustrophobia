@@ -36,6 +36,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Shrink",
+                    "type": "Button",
+                    "id": "318b0281-f105-463f-a2dd-97714ca9ae60",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Expand",
+                    "type": "Button",
+                    "id": "fb069b67-6486-4d91-ad9b-e1c7640dbc5f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -80,6 +96,55 @@
                     "processors": "",
                     "groups": "",
                     "action": "LanternOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d03a77e-c856-420b-be42-80c64750a0e3",
+                    "path": "<DualShockGamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shrink",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbf058de-31c1-4895-b57d-cd49e05f1661",
+                    "path": "<DualShockGamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Expand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "LookTo",
+            "id": "7c48754d-9f4a-4b55-931d-d225081452ad",
+            "actions": [
+                {
+                    "name": "lookAt",
+                    "type": "Value",
+                    "id": "86f07bdb-dda8-4e95-aff6-250f083f8e35",
+                    "expectedControlType": "Stick",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f2c178ab-c729-43bc-ad12-a92d0af9b7ed",
+                    "path": "<DualShockGamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "lookAt",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

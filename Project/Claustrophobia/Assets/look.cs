@@ -12,24 +12,18 @@ public class look : MonoBehaviour
     void Awake()
     {
         lookTo = new Ps4Controller();
-
-        lookTo.Player.RotatePlayer.performed += ctx => rotate = ctx.ReadValue<Vector2>();
-        lookTo.Player.RotatePlayer.canceled += ctx => rotate = Vector2.zero;
-    }
-    void Start()
-    {/*
-        Cursor.lockState = CursorLockMode.Locked;*/
+        lookTo.LookTo.lookAt.performed += ctx => rotate = ctx.ReadValue<Vector2>();
+        lookTo.LookTo.lookAt.canceled += ctx => rotate = Vector2.zero;
     }
     void OnEnable()
     {
-        lookTo.Player.Enable();
+        lookTo.LookTo.Enable();
     }
     void OnDisable()
     {
-        lookTo.Player.Disable();
+        lookTo.LookTo.Disable();
     }
 
-    // Update is called once per frame
     void Update()
     {
         xRotation -= rotate.y;

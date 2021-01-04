@@ -49,6 +49,22 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shrink"",
+                    ""type"": ""Button"",
+                    ""id"": ""318b0281-f105-463f-a2dd-97714ca9ae60"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Expand"",
+                    ""type"": ""Button"",
+                    ""id"": ""fb069b67-6486-4d91-ad9b-e1c7640dbc5f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -95,6 +111,55 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                     ""action"": ""LanternOn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d03a77e-c856-420b-be42-80c64750a0e3"",
+                    ""path"": ""<DualShockGamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shrink"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbf058de-31c1-4895-b57d-cd49e05f1661"",
+                    ""path"": ""<DualShockGamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Expand"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""LookTo"",
+            ""id"": ""7c48754d-9f4a-4b55-931d-d225081452ad"",
+            ""actions"": [
+                {
+                    ""name"": ""lookAt"",
+                    ""type"": ""Value"",
+                    ""id"": ""86f07bdb-dda8-4e95-aff6-250f083f8e35"",
+                    ""expectedControlType"": ""Stick"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f2c178ab-c729-43bc-ad12-a92d0af9b7ed"",
+                    ""path"": ""<DualShockGamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""lookAt"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -107,6 +172,11 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
         m_Player_RotatePlayer = m_Player.FindAction("RotatePlayer", throwIfNotFound: true);
         m_Player_LightsOn = m_Player.FindAction("LightsOn", throwIfNotFound: true);
         m_Player_LanternOn = m_Player.FindAction("LanternOn", throwIfNotFound: true);
+        m_Player_Shrink = m_Player.FindAction("Shrink", throwIfNotFound: true);
+        m_Player_Expand = m_Player.FindAction("Expand", throwIfNotFound: true);
+        // LookTo
+        m_LookTo = asset.FindActionMap("LookTo", throwIfNotFound: true);
+        m_LookTo_lookAt = m_LookTo.FindAction("lookAt", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -160,6 +230,8 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_RotatePlayer;
     private readonly InputAction m_Player_LightsOn;
     private readonly InputAction m_Player_LanternOn;
+    private readonly InputAction m_Player_Shrink;
+    private readonly InputAction m_Player_Expand;
     public struct PlayerActions
     {
         private @Ps4Controller m_Wrapper;
@@ -168,6 +240,8 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
         public InputAction @RotatePlayer => m_Wrapper.m_Player_RotatePlayer;
         public InputAction @LightsOn => m_Wrapper.m_Player_LightsOn;
         public InputAction @LanternOn => m_Wrapper.m_Player_LanternOn;
+        public InputAction @Shrink => m_Wrapper.m_Player_Shrink;
+        public InputAction @Expand => m_Wrapper.m_Player_Expand;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -189,6 +263,12 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                 @LanternOn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLanternOn;
                 @LanternOn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLanternOn;
                 @LanternOn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLanternOn;
+                @Shrink.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShrink;
+                @Shrink.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShrink;
+                @Shrink.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShrink;
+                @Expand.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExpand;
+                @Expand.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExpand;
+                @Expand.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExpand;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -205,15 +285,60 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                 @LanternOn.started += instance.OnLanternOn;
                 @LanternOn.performed += instance.OnLanternOn;
                 @LanternOn.canceled += instance.OnLanternOn;
+                @Shrink.started += instance.OnShrink;
+                @Shrink.performed += instance.OnShrink;
+                @Shrink.canceled += instance.OnShrink;
+                @Expand.started += instance.OnExpand;
+                @Expand.performed += instance.OnExpand;
+                @Expand.canceled += instance.OnExpand;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // LookTo
+    private readonly InputActionMap m_LookTo;
+    private ILookToActions m_LookToActionsCallbackInterface;
+    private readonly InputAction m_LookTo_lookAt;
+    public struct LookToActions
+    {
+        private @Ps4Controller m_Wrapper;
+        public LookToActions(@Ps4Controller wrapper) { m_Wrapper = wrapper; }
+        public InputAction @lookAt => m_Wrapper.m_LookTo_lookAt;
+        public InputActionMap Get() { return m_Wrapper.m_LookTo; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(LookToActions set) { return set.Get(); }
+        public void SetCallbacks(ILookToActions instance)
+        {
+            if (m_Wrapper.m_LookToActionsCallbackInterface != null)
+            {
+                @lookAt.started -= m_Wrapper.m_LookToActionsCallbackInterface.OnLookAt;
+                @lookAt.performed -= m_Wrapper.m_LookToActionsCallbackInterface.OnLookAt;
+                @lookAt.canceled -= m_Wrapper.m_LookToActionsCallbackInterface.OnLookAt;
+            }
+            m_Wrapper.m_LookToActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @lookAt.started += instance.OnLookAt;
+                @lookAt.performed += instance.OnLookAt;
+                @lookAt.canceled += instance.OnLookAt;
+            }
+        }
+    }
+    public LookToActions @LookTo => new LookToActions(this);
     public interface IPlayerActions
     {
         void OnMovePlayer(InputAction.CallbackContext context);
         void OnRotatePlayer(InputAction.CallbackContext context);
         void OnLightsOn(InputAction.CallbackContext context);
         void OnLanternOn(InputAction.CallbackContext context);
+        void OnShrink(InputAction.CallbackContext context);
+        void OnExpand(InputAction.CallbackContext context);
+    }
+    public interface ILookToActions
+    {
+        void OnLookAt(InputAction.CallbackContext context);
     }
 }
