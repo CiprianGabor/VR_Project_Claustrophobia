@@ -60,7 +60,8 @@
     <Compile Include="Assets\Ps4Controller.cs" />
     <Compile Include="Assets\ShrinkExpand.cs" />
     <Compile Include="Assets\look.cs" />
-    <Compile Include="Assets\movement.cs" />
+    <Compile Include="Assets\playerActions.cs" />
+    <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.17f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

@@ -65,6 +65,22 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6ad2bb3-f856-4b4d-b728-10bdb1f63096"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""39238f76-123d-42d4-ada5-676686a2f5ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -133,6 +149,28 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                     ""action"": ""Expand"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b1914f4-4f86-4ece-84c8-23132fdaf43d"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""070c6f23-c469-40bf-85eb-8fe0c5af776d"",
+                    ""path"": ""<DualShockGamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -174,6 +212,8 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
         m_Player_LanternOn = m_Player.FindAction("LanternOn", throwIfNotFound: true);
         m_Player_Shrink = m_Player.FindAction("Shrink", throwIfNotFound: true);
         m_Player_Expand = m_Player.FindAction("Expand", throwIfNotFound: true);
+        m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
+        m_Player_Reset = m_Player.FindAction("Reset", throwIfNotFound: true);
         // LookTo
         m_LookTo = asset.FindActionMap("LookTo", throwIfNotFound: true);
         m_LookTo_lookAt = m_LookTo.FindAction("lookAt", throwIfNotFound: true);
@@ -232,6 +272,8 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_LanternOn;
     private readonly InputAction m_Player_Shrink;
     private readonly InputAction m_Player_Expand;
+    private readonly InputAction m_Player_Escape;
+    private readonly InputAction m_Player_Reset;
     public struct PlayerActions
     {
         private @Ps4Controller m_Wrapper;
@@ -242,6 +284,8 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
         public InputAction @LanternOn => m_Wrapper.m_Player_LanternOn;
         public InputAction @Shrink => m_Wrapper.m_Player_Shrink;
         public InputAction @Expand => m_Wrapper.m_Player_Expand;
+        public InputAction @Escape => m_Wrapper.m_Player_Escape;
+        public InputAction @Reset => m_Wrapper.m_Player_Reset;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -269,6 +313,12 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                 @Expand.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExpand;
                 @Expand.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExpand;
                 @Expand.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnExpand;
+                @Escape.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEscape;
+                @Reset.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
+                @Reset.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
+                @Reset.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -291,6 +341,12 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                 @Expand.started += instance.OnExpand;
                 @Expand.performed += instance.OnExpand;
                 @Expand.canceled += instance.OnExpand;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
+                @Reset.started += instance.OnReset;
+                @Reset.performed += instance.OnReset;
+                @Reset.canceled += instance.OnReset;
             }
         }
     }
@@ -336,6 +392,8 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
         void OnLanternOn(InputAction.CallbackContext context);
         void OnShrink(InputAction.CallbackContext context);
         void OnExpand(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
+        void OnReset(InputAction.CallbackContext context);
     }
     public interface ILookToActions
     {
