@@ -81,6 +81,14 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Beep"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5a6a07c-7fc5-4eec-8775-a08e5ffea083"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -153,7 +161,7 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""6b1914f4-4f86-4ece-84c8-23132fdaf43d"",
-                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""path"": ""<DualShockGamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -164,11 +172,22 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""070c6f23-c469-40bf-85eb-8fe0c5af776d"",
-                    ""path"": ""<DualShockGamepad>/start"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6b35c7a-3be3-46a6-95f7-781ac2aaf416"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Beep"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -214,6 +233,7 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
         m_Player_Expand = m_Player.FindAction("Expand", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_Reset = m_Player.FindAction("Reset", throwIfNotFound: true);
+        m_Player_Beep = m_Player.FindAction("Beep", throwIfNotFound: true);
         // LookTo
         m_LookTo = asset.FindActionMap("LookTo", throwIfNotFound: true);
         m_LookTo_lookAt = m_LookTo.FindAction("lookAt", throwIfNotFound: true);
@@ -274,6 +294,7 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Expand;
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_Reset;
+    private readonly InputAction m_Player_Beep;
     public struct PlayerActions
     {
         private @Ps4Controller m_Wrapper;
@@ -286,6 +307,7 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
         public InputAction @Expand => m_Wrapper.m_Player_Expand;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputAction @Reset => m_Wrapper.m_Player_Reset;
+        public InputAction @Beep => m_Wrapper.m_Player_Beep;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -319,6 +341,9 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                 @Reset.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
                 @Reset.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
                 @Reset.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnReset;
+                @Beep.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBeep;
+                @Beep.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBeep;
+                @Beep.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBeep;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -347,6 +372,9 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
                 @Reset.started += instance.OnReset;
                 @Reset.performed += instance.OnReset;
                 @Reset.canceled += instance.OnReset;
+                @Beep.started += instance.OnBeep;
+                @Beep.performed += instance.OnBeep;
+                @Beep.canceled += instance.OnBeep;
             }
         }
     }
@@ -394,6 +422,7 @@ public class @Ps4Controller : IInputActionCollection, IDisposable
         void OnExpand(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnReset(InputAction.CallbackContext context);
+        void OnBeep(InputAction.CallbackContext context);
     }
     public interface ILookToActions
     {

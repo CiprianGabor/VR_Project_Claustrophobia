@@ -174,11 +174,17 @@ public class ShrinkExpand : MonoBehaviour
         wall4.transform.localPosition = resetWall4;
         resetWallSize(wall4);
 
-        Vector3 resetCeilling = ceiling.transform.localScale;
-        resetCeilling.x = 100f;
-        resetCeilling.y = 1f;
-        resetCeilling.z = 100f;
-        ceiling.transform.localScale = resetCeilling;
+        Vector3 resetCeillingScale = ceiling.transform.localScale;
+        resetCeillingScale.x = 100f;
+        resetCeillingScale.y = 1f;
+        resetCeillingScale.z = 100f;
+        ceiling.transform.localScale = resetCeillingScale;
+
+        Vector3 resetCeillingPosition = ceiling.transform.localPosition;
+        resetCeillingPosition.x = -20f;
+        resetCeillingPosition.y = 15f;
+        resetCeillingPosition.z = 25f;
+        ceiling.transform.localPosition = resetCeillingPosition;
     }
     void resetWallSize(GameObject wall)
     {

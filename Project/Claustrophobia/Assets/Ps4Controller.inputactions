@@ -68,6 +68,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Beep",
+                    "type": "Button",
+                    "id": "e5a6a07c-7fc5-4eec-8775-a08e5ffea083",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -140,7 +148,7 @@
                 {
                     "name": "",
                     "id": "6b1914f4-4f86-4ece-84c8-23132fdaf43d",
-                    "path": "<DualShockGamepad>/buttonWest",
+                    "path": "<DualShockGamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -151,11 +159,22 @@
                 {
                     "name": "",
                     "id": "070c6f23-c469-40bf-85eb-8fe0c5af776d",
-                    "path": "<DualShockGamepad>/start",
+                    "path": "<DualShockGamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Reset",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6b35c7a-3be3-46a6-95f7-781ac2aaf416",
+                    "path": "<DualShockGamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Beep",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -10,6 +10,8 @@ public class playerActions : MonoBehaviour
     Vector2 move;
     public Light cLight;
     public Light lantern;
+    public Canvas HUD;
+    public GameObject flashLight;
     bool escape = false;
 
     void Awake()
@@ -56,6 +58,9 @@ public class playerActions : MonoBehaviour
             player.transform.localPosition = move;
             player.enabled = true;
             escape = true;
+            HUD.enabled = false;
+            flashLight.SetActive(false);
+            
         }
         else
         {
@@ -67,8 +72,9 @@ public class playerActions : MonoBehaviour
             player.transform.localPosition = move;
             player.enabled = true;
             escape = false;
-        }
-        
+            HUD.enabled = true;
+            flashLight.SetActive(true);
+        }    
     }
 
     void Update()
